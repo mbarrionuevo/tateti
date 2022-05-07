@@ -95,7 +95,7 @@ function App() {
       </div>
       <div style={{ height: "60px", textAlign: "center" }}>
         {winner && <h1>Won: {winner}</h1>}
-        {tie && <h1>Tie</h1>}
+        {tie && !winner && <h1>Tie</h1>}
         {(tie || winner) && <button onClick={handleOnReset}>Play again</button>}
       </div>
     </div>

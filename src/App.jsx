@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [winner, setWinner] = useState(null);
-  const [player, setPlayer] = useState(true);
+  const [player, setPlayer] = useState("X");
   const [tie, setTie] = useState(false);
 
   const combinations = [
@@ -22,10 +22,16 @@ function App() {
     if (winner) {
       return;
     }
+
     setBoard((state) => {
       const newState = [...state];
+
+      if (newState[index]) {
+        return newState;
+      }
+
       newState[index] = player;
-      setPlayer(!player);
+      setPlayer("X" === player ? "O" : "X");
       return newState;
     });
   };
@@ -44,23 +50,32 @@ function App() {
     let player2 = [];
 
     board.forEach((value, index) => {
-      if (value) {
-        player1 = [...player1, index];
-      } else if (value === false) {
-        player2 = [...player2, index];
+      if (value === "X") {
+        player1.push(index);
+      } else if (value === "O") {
+        player2.push(index);
       }
     });
 
     combinations.forEach((combi) => {
-      if (combi.every((index) => player1.includes(index))) {
-        return setWinner("X");
-      }
-      if (combi.every((index) => player2.includes(index))) {
-        return setWinner("O");
+      if (
+        player1.includes(combi[0]) &&
+        player1.includes(combi[1]) &&
+        player1.includes(combi[2])
+      ) {
+        setWinner("X");
+      } else if (
+        player2.includes(combi[0]) &&
+        player2.includes(combi[1]) &&
+        player2.includes(combi[2])
+      ) {
+        setWinner("O");
       }
     });
 
-    setTie(board.every((value) => value !== null));
+    if (!winner) {
+      setTie(board.every((value) => value !== null));
+    }
   };
 
   return (
@@ -73,8 +88,7 @@ function App() {
               className="row"
               onClick={() => handleOnClick(index)}
             >
-              {item === true && "X"}
-              {item === false && "O"}
+              {item}
             </div>
           );
         })}
@@ -82,9 +96,7 @@ function App() {
       <div style={{ height: "60px", textAlign: "center" }}>
         {winner && <h1>Won: {winner}</h1>}
         {tie && <h1>Tie</h1>}
-        {(tie || winner) && (
-          <button onClick={handleOnReset}>Play again</button>
-        )}
+        {(tie || winner) && <button onClick={handleOnReset}>Play again</button>}
       </div>
     </div>
   );

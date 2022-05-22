@@ -11,7 +11,10 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="${request.scheme}://${request.serverName}:${request.serverPort}${currentpage.path}.html" />
+    <meta name="url" property="og:url" content="www.sample.com" />
+    <script>
+        document.querySelector("meta[name=\"url\"]").setAttribute("content", window.location.href);
+    </script>
     <meta property="og:title" content="Tateti" />
     <meta property="og:description" content="" />
     <meta

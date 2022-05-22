@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+
+import MetaTags from "react-meta-tags";
+
 import "./App.css";
 
 function App() {
@@ -79,26 +82,68 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <div className="board">
-        {board.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="row"
-              onClick={() => handleOnClick(index)}
-            >
-              {item}
-            </div>
-          );
-        })}
+    <>
+      <MetaTags>
+        <title>Meta Tags — Preview, Edit and Generate</title>
+        <meta name="title" content="Meta Tags — Preview, Edit and Generate" />
+        <meta
+          name="description"
+          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://metatags.io/" />
+        <meta
+          property="og:title"
+          content="Meta Tags — Preview, Edit and Generate"
+        />
+        <meta
+          property="og:description"
+          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+        />
+        <meta
+          property="og:image"
+          content={`${window.location.href}assets/ping-og-large.png`}
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://metatags.io/" />
+        <meta
+          property="twitter:title"
+          content="Meta Tags — Preview, Edit and Generate"
+        />
+        <meta
+          property="twitter:description"
+          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+        />
+        <meta
+          property="twitter:image"
+          content={`${window.location.href}assets/ping-og-large.png`}
+        />
+      </MetaTags>
+      <div className="container">
+        <div className="board">
+          {board.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="row"
+                onClick={() => handleOnClick(index)}
+              >
+                {item}
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ height: "60px", textAlign: "center" }}>
+          {winner && <h1>Won: {winner}</h1>}
+          {tie && !winner && <h1>Tie</h1>}
+          {(tie || winner) && (
+            <button onClick={handleOnReset}>Play again</button>
+          )}
+        </div>
       </div>
-      <div style={{ height: "60px", textAlign: "center" }}>
-        {winner && <h1>Won: {winner}</h1>}
-        {tie && !winner && <h1>Tie</h1>}
-        {(tie || winner) && <button onClick={handleOnReset}>Play again</button>}
-      </div>
-    </div>
+    </>
   );
 }
 

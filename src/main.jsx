@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <title>Page 1</title>
       <meta name="description" content="Some description." />
       <meta property="og:title" content="MyApp" />
-      <meta property="og:image" content={`${window.location.href}assets/logo.jpg`} />
+      <meta property="og:image" content={`${window.location.href}assets/logo.svg`} />
     </MetaTags>
     <App />
   </React.StrictMode>
